@@ -15,7 +15,7 @@ import org.jgrapht.graph.DefaultWeightedEdge;
 public class GraphUtilitys {
 	
 	
-	//Rueckgabe: Hash-Map mit Kante -> Flu�
+	//Rueckgabe: Maximalfluss
 		public static double fordUndFulkerson(Graph<String, DefaultWeightedEdge> graph, String quelle, String senke){
 			
 			//Kante -> Kapazitaet
@@ -25,7 +25,7 @@ public class GraphUtilitys {
 			}
 				
 			//Initialisierung:
-			//Kante -> Flu�
+			//Kante -> Fluss
 			Map<DefaultWeightedEdge, Double> fluss = new HashMap<DefaultWeightedEdge, Double>();
 			for(DefaultWeightedEdge e : graph.edgeSet()){
 				fluss.put(e, 0d);
@@ -41,7 +41,7 @@ public class GraphUtilitys {
 			//Ecke -> Inkrement(Double)
 			Map<String, Double> inkrement = new HashMap<String, Double>();
 			inkrement.put(quelle, Double.POSITIVE_INFINITY);
-			//enth�lt alle schon inspizierten Ecken
+			//enthaelt alle schon inspizierten Ecken
 			Set<String> inspiziert = new HashSet<String>();
 			
 			
@@ -100,10 +100,6 @@ public class GraphUtilitys {
 						
 						weg = aktEcke + ", " + weg;
 					}
-//					
-//					//Zum Nachvollziehen:
-//					System.out.println("Vergroessernder Weg: " + weg + "; Inkrement: " + inkr);
-//					System.out.println(fluss);
 					
 					//und dann auch wieder die Hashes und sets reseten:
 					//Initialisierung 2.Teil wiederholen:
@@ -115,7 +111,7 @@ public class GraphUtilitys {
 					//Ecke -> Inkrement(Double)
 					inkrement = new HashMap<String, Double>();
 					inkrement.put(quelle, Double.POSITIVE_INFINITY);
-					//enth�lt alle schon inspizierten Ecken
+					//enthaelt alle schon inspizierten Ecken
 					inspiziert = new HashSet<String>();
 				}
 			}
