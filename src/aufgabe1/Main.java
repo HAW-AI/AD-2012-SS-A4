@@ -19,58 +19,31 @@ public class Main {
      */
     public static void main(String[] args) {
         System.out.println("ohne Tiefe");
-        searchFile("/Dropbox", ".jpg");
+        for (String string : searchFile("/Dropbox", "")) {
+            System.out.println(string);
+        }
         System.out.println("mit Tiefe");
-        searchFile("/Dropbox", ".jpg", 1);
-    }
-
-    public static void searchFile(String pfad, String typ) {
-        if (!pfad.startsWith("c:")) {
-            pfad = "c:" + pfad;
-        }
-        File file = new File(pfad);
-        List<String> ordner = new LinkedList<>();
-        if (file.listFiles() == null) {
-            return;
-        }
-        for (File f : file.listFiles()) {
-            if (!f.isDirectory()) {
-                if (f.getName().contains(typ)) {
-                    System.out.println("gefunden: " + f.getAbsolutePath());
-                }
-            } else {
-                ordner.add(f.getAbsolutePath());
-            }
-        }
-        for (String string : ordner) {
-            searchFile(string, typ);
+        for (String string : searchFile("/Dropbox", ".jpg", 3)) {
+            System.out.println(string);
         }
     }
-
-    private static void searchFile(String pfad, String typ, int tiefe) {
-        if (!pfad.startsWith("c:")) {
-            pfad = "c:" + pfad;
-        }
+    
+    public static List<String> searchFile(String pfad, String typ) {
+        return searchFile(pfad, typ, Integer.MAX_VALUE);
+    }
+    
+    private static List<String> searchFile(String pfad, String typ, int tiefe) {
         File file = new File(pfad);
-        List<String> ordner = new LinkedList<>();
-
-        if (file.listFiles() == null) {
-            return;
-        }
-
-        if (tiefe >= 0) {
+        List<String> ausgabe = new LinkedList<>();
+        if (file.listFiles() != null && tiefe >= 0) {
             for (File f : file.listFiles()) {
-                if (!f.isDirectory()) {
-                    if (f.getName().contains(typ)) {
-                        System.out.println("gefunden: " + f.getAbsolutePath());
-                    }
+                if (!f.isDirectory() && f.getName().contains(typ)) {
+                    ausgabe.add("gefunden: " + f.getAbsolutePath());
                 } else {
-                    ordner.add(f.getAbsolutePath());
+                    ausgabe.addAll(searchFile(f.getAbsolutePath(), typ, tiefe - 1));
                 }
             }
-            for (String string : ordner) {
-                searchFile(string, typ, tiefe - 1);
-            }
         }
+        return ausgabe;
     }
 }
