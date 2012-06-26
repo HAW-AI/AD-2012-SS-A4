@@ -19,11 +19,11 @@ public class Main {
      */
     public static void main(String[] args) {
         System.out.println("ohne Tiefe");
-        for (String string : searchFile("/Dropbox", "")) {
+        for (String string : searchFile("/DropBox/Neuer Ordner", "")) {
             System.out.println(string);
         }
         System.out.println("mit Tiefe");
-        for (String string : searchFile("/Dropbox", ".jpg", 3)) {
+        for (String string : searchFile("/DropBox/Neuer Ordner", "", 1)) {
             System.out.println(string);
         }
     }
@@ -35,13 +35,14 @@ public class Main {
     private static List<String> searchFile(String pfad, String typ, int tiefe) {
         File file = new File(pfad);
         List<String> ausgabe = new LinkedList<>();
+        
+        if (!file.isDirectory() && file.getName().contains(typ)) {
+            ausgabe.add("gefunden: " + file.getAbsolutePath());
+        }        
+        
         if (file.listFiles() != null && tiefe >= 0) {
             for (File f : file.listFiles()) {
-                if (!f.isDirectory() && f.getName().contains(typ)) {
-                    ausgabe.add("gefunden: " + f.getAbsolutePath());
-                } else {
-                    ausgabe.addAll(searchFile(f.getAbsolutePath(), typ, tiefe - 1));
-                }
+                ausgabe.addAll(searchFile(f.getAbsolutePath(), typ, tiefe - 1));
             }
         }
         return ausgabe;
