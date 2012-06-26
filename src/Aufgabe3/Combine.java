@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Aufgabe3;
+package aufgabe3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class Combine
 {
+
     public static void main(String[] args)
     {
         double[] dArr =
@@ -30,11 +31,9 @@ public class Combine
         String bla = Combine.with(" ").notNulls().trim().notEmpty().prepend("-> ").append(".").from(sLst);
         System.out.println(bla);
     }
-
     private final String with;
     private final String prepend;
     private final String append;
-    
     private final boolean notNulls;
     private final boolean trim;
     private final boolean notEmpty;
@@ -105,16 +104,13 @@ public class Combine
     public String from(List<? extends Object> list)
     {
         List<String> stringList = new ArrayList<String>();
-        for (Object o : list)
-        {
-            if (o == null)
-            {
-                stringList.add(null);
-            } else
-            {
-                stringList.add(o.toString());
-            }
 
+        if (list != null)
+        {
+            for (Object o : list)
+            {
+                stringList.add((o != null) ? o.toString() : null);
+            }
         }
 
         return this.buildString(this.filter(stringList));
@@ -139,7 +135,7 @@ public class Combine
 
         return list;
     }
-    
+
     private List<String> filterEmpty(List<String> list)
     {
         List<String> result = new ArrayList<String>();
@@ -159,14 +155,7 @@ public class Combine
         List<String> result = new ArrayList<String>();
         for (String s : list)
         {
-            if (s == null)
-            {
-                result.add(null);
-            } else
-            {
-                result.add(s.trim());
-            }
-
+            result.add((s == null) ? null : s.trim());
         }
 
         return result;
@@ -226,11 +215,6 @@ public class Combine
 
     private String join(List<String> ary, String separator)
     {
-        if (ary == null)
-        {
-            return "";
-        }
-
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < ary.size(); i++)
         {
@@ -243,6 +227,4 @@ public class Combine
 
         return builder.toString();
     }
-
-
 }
