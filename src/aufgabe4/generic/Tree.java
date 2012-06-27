@@ -62,7 +62,10 @@ public class Tree<T> implements ITree<T> {
 		return (subTrees.equals(t.getSubTrees()));
 	}
 
-	@Override
+	public int hashCode() {
+		return (new Object[] {elem, subTrees}).hashCode();
+	}
+
 	public Collection<ITree<T>> getSubTrees() {
 		return subTrees;
 	}

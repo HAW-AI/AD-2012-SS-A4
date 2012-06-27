@@ -1,5 +1,7 @@
 package aufgabe4.specific;
 
+import java.util.Arrays;
+
 public class Tree implements ITree {
 
 	public static final ITree EMPTY_TREE = new Tree();
@@ -31,7 +33,7 @@ public class Tree implements ITree {
 	}
 	
 	public ITree getSubTree(int n) {
-		if (subTrees.length < n)
+		if (n >= 0 && subTrees.length > n)
 			return subTrees[n];
 		return null;
 	}
@@ -46,10 +48,13 @@ public class Tree implements ITree {
 		ITree t = (ITree) o;
 		if (!((elem == null && t.root() == null) || elem.equals(t.root())))
 			return false;
-		return (subTrees.equals(t.getSubTrees()));
+		return (Arrays.equals(subTrees, t.getSubTrees()));
+	}
+	
+	public int hashCode() {
+		return (new Object[] {elem, subTrees}).hashCode();
 	}
 
-	@Override
 	public ITree[] getSubTrees() {
 		return subTrees.clone();
 	}
