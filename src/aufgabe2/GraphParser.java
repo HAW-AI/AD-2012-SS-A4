@@ -58,10 +58,18 @@ public class GraphParser {
 			if(!graph.containsVertex(ecke2)){
 				graph.addVertex(ecke2);
 			}
-			aktEdge = graph.addEdge(ecke1, ecke2);
-			graph.setEdgeWeight(aktEdge, weight);
-			aktEdge = graph.addEdge(ecke2, ecke1);
-			graph.setEdgeWeight(aktEdge, weight);
+			
+			if (!graph.containsEdge(ecke1, ecke2)){
+				aktEdge = graph.addEdge(ecke1, ecke2);
+				graph.setEdgeWeight(aktEdge, weight);
+				aktEdge = graph.addEdge(ecke2, ecke1);
+				graph.setEdgeWeight(aktEdge, weight);
+			}else{
+				aktEdge = graph.getEdge(ecke1, ecke2);
+				graph.setEdgeWeight(aktEdge, graph.getEdgeWeight(aktEdge) + weight);
+				aktEdge = graph.getEdge(ecke2,ecke1);
+				graph.setEdgeWeight(aktEdge, graph.getEdgeWeight(aktEdge) + weight);
+			}
 		}
 		return graph;
 	}
