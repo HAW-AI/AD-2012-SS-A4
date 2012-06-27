@@ -14,23 +14,6 @@ import java.util.List;
 public class Combine
 {
 
-    public static void main(String[] args)
-    {
-        double[] dArr =
-        {
-            1.23, 3.21, 2.13
-        };
-        System.out.println(Combine.with(" , ").prepend("A ").append(" Z").from(dArr));
-
-
-        List<String> sLst = new ArrayList<String>();
-        sLst.add(" Hallo");
-        sLst.add(null);
-        sLst.add(" ");
-        sLst.add(" Welt ");
-        String bla = Combine.with(" ").notNulls().trim().notEmpty().prepend("-> ").append(".").from(sLst);
-        System.out.println(bla);
-    }
     private final String with;
     private final String prepend;
     private final String append;
@@ -81,7 +64,7 @@ public class Combine
 
     public String from(double[] ary)
     {
-        List<String> stringList = new ArrayList<String>();
+        List<String> stringList = new ArrayList<>();
         for (double d : ary)
         {
             stringList.add(Double.toString(d));
@@ -92,7 +75,7 @@ public class Combine
 
     public String from(int[] ary)
     {
-        List<String> stringList = new ArrayList<String>();
+        List<String> stringList = new ArrayList<>();
         for (int i : ary)
         {
             stringList.add(Integer.toString(i));
@@ -103,7 +86,7 @@ public class Combine
 
     public String from(List<? extends Object> list)
     {
-        List<String> stringList = new ArrayList<String>();
+        List<String> stringList = new ArrayList<>();
 
         if (list != null)
         {
@@ -138,7 +121,7 @@ public class Combine
 
     private List<String> filterEmpty(List<String> list)
     {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         for (String s : list)
         {
             if (s == null || !s.trim().equals(""))
@@ -152,7 +135,7 @@ public class Combine
 
     private List<String> filterTrim(List<String> list)
     {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         for (String s : list)
         {
             result.add((s == null) ? null : s.trim());
@@ -163,7 +146,7 @@ public class Combine
 
     private List<String> filterNulls(List<String> list)
     {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         for (String s : list)
         {
             if (s != null)
