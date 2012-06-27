@@ -101,19 +101,19 @@ public class Combine
 
     private List<String> filter(List<String> list)
     {
-        if (this.notEmpty)
+        if (this.notNulls)
         {
-            list = filterEmpty(list);
+            list = filterNulls(list);
         }
 
         if (this.trim)
         {
             list = filterTrim(list);
         }
-
-        if (this.notNulls)
+        
+        if (this.notEmpty)
         {
-            list = filterNulls(list);
+            list = filterEmpty(list);
         }
 
         return list;
