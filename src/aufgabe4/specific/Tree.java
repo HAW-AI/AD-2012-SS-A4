@@ -58,5 +58,15 @@ public class Tree implements ITree {
 	public ITree[] getSubTrees() {
 		return subTrees.clone();
 	}
-
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder("{").append(elem);
+		if (subTrees.length > 0) {
+			sb.append(" => [");
+			for (ITree tree : subTrees)
+				sb.append(" ").append(tree).append(" , ");
+			sb.append("]");
+		}
+		return sb.append("}").toString();
+	}
 }
